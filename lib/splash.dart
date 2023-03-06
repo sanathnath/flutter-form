@@ -9,21 +9,26 @@ class ScreenSplash extends StatefulWidget {
 }
 
 class _ScreenSplashState extends State<ScreenSplash> {
-  
   @override
   void initState() {
     gotoLogin();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Center(child: Text("Splash screen")),
+      body: Center(
+          child: Text(
+        "Splash screen",
+        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+      )),
     );
   }
 
-  Future<void> gotoLogin() async{
+  Future<void> gotoLogin() async {
     await Future.delayed(Duration(seconds: 3));
-    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx)=> ScreenRegister()));
+    Navigator.of(context)
+        .pushReplacement(MaterialPageRoute(builder: (ctx) => ScreenRegister()));
   }
 }

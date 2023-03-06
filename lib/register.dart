@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sample/home.dart';
 
-class ScreenRegister extends StatelessWidget {
+class ScreenRegister extends StatefulWidget {
   ScreenRegister({Key? key}) : super(key: key);
 
+  @override
+  State<ScreenRegister> createState() => _ScreenRegisterState();
+}
+
+class _ScreenRegisterState extends State<ScreenRegister> {
   final _formKey = GlobalKey<FormState>();
 
   final _firstNameController = TextEditingController();
+
   final _lastNameController = TextEditingController();
+
   final _passwordController = TextEditingController();
+
   final _confirmPasswordController = TextEditingController();
 
   @override
@@ -26,9 +34,12 @@ class ScreenRegister extends StatelessWidget {
                   TextFormField(
                     controller: _firstNameController,
                     decoration: const InputDecoration(
-                        border: OutlineInputBorder(), hintText: "First Name"),
-                    validator: (value){
-                      if(value == null || value.isEmpty){
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(25))),
+                        hintText: "First Name"),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
                         return 'first name required';
                       }
                       return null;
@@ -40,9 +51,12 @@ class ScreenRegister extends StatelessWidget {
                   TextFormField(
                     controller: _lastNameController,
                     decoration: const InputDecoration(
-                        border: OutlineInputBorder(), hintText: "Last Name"),
-                    validator: (value){
-                      if(value == null || value.isEmpty){
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(25))),
+                        hintText: "Last Name"),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
                         return 'last name required';
                       }
                       return null;
@@ -55,9 +69,12 @@ class ScreenRegister extends StatelessWidget {
                     controller: _passwordController,
                     obscureText: true,
                     decoration: const InputDecoration(
-                        border: OutlineInputBorder(), hintText: "Password"),
-                    validator: (value){
-                      if(value == null || value.isEmpty){
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(25))),
+                        hintText: "Password"),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
                         return 'password required';
                       }
                       return null;
@@ -70,14 +87,16 @@ class ScreenRegister extends StatelessWidget {
                     controller: _confirmPasswordController,
                     obscureText: true,
                     decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(25))),
                         hintText: "Confirm password"),
-                    validator: (value){
-                      if(value == null || value.isEmpty){
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
                         return 'confirm password required';
-                        if(value != _passwordController.text){
-                          return "password not matching";
-                        }
+                      }
+                      if (value != _confirmPasswordController.text) {
+                        return 'password not matching';
                       }
                       return null;
                     },
@@ -85,13 +104,16 @@ class ScreenRegister extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  ElevatedButton(
-                    onPressed: (){
-                      if(_formKey.currentState!.validate()){
+                  RaisedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
                         register(context);
                       }
                     },
                     child: const Text('Register'),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40)),
+                    color: Color(0xffa2d2ff),
                   )
                 ]),
           ),
@@ -100,8 +122,7 @@ class ScreenRegister extends StatelessWidget {
     );
   }
 
-  void register(BuildContext ctx){
-    
+  void register(BuildContext ctx) {
     final first = _firstNameController.text;
     final last = _lastNameController.text;
     final pass = _passwordController.text;
@@ -113,6 +134,10 @@ class ScreenRegister extends StatelessWidget {
     print("password: $pass");
     print("confirm: $conf");
 
-    Navigator.of(ctx).pushReplacement(MaterialPageRoute(builder: (ctx)=> ScreenHome()));
+    Navigator.of(ctx).pushReplacement(MaterialPageRoute(
+        builder: (ctx) => ScreenHome(
+              firstName: _firstNameController.text,
+              lastName: _lastNameController.text,
+            )));
   }
 }
